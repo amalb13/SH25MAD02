@@ -45,30 +45,50 @@ class SpotifyScreen extends StatelessWidget {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Image.network('https://picsum.photos/id/1018/800', fit: BoxFit.cover),
+            // Changed background to gradient instead of an image to avoid overflow
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.teal, Colors.black87],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+            ),
             Container(color: Colors.black54),
             ListView(
               padding: const EdgeInsets.all(20),
               children: [
                 Image.network('https://picsum.photos/id/1018/400', height: 250),
                 const SizedBox(height: 20),
-                const Text('Mountain Sunrise', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                const Text('By Nature Sounds', style: TextStyle(color: Colors.grey)),
+                Text(
+                  'Mountain Sunrise',
+                  style: Theme.of(c).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'By Nature Sounds',
+                  style: Theme.of(c).textTheme.titleMedium?.copyWith(color: Colors.grey[400]),
+                ),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
-                    Icon(Icons.shuffle), Icon(Icons.skip_previous),
+                    Icon(Icons.shuffle),
+                    Icon(Icons.skip_previous),
                     Icon(Icons.play_circle_fill, size: 60),
-                    Icon(Icons.skip_next), Icon(Icons.repeat),
+                    Icon(Icons.skip_next),
+                    Icon(Icons.repeat),
                   ],
                 ),
                 const SizedBox(height: 20),
-                ...List.generate(8, (i) => ListTile(
-                      leading: Text('${i + 1}'),
-                      title: Text('Track ${i + 1}'),
-                      trailing: const Icon(Icons.more_vert),
-                    ))
+                ...List.generate(
+                  8,
+                  (i) => ListTile(
+                    leading: Text('${i + 1}'),
+                    title: Text('Track ${i + 1}', style: Theme.of(c).textTheme.bodyMedium),
+                    trailing: const Icon(Icons.more_vert),
+                  ),
+                ),
               ],
             ),
           ],
